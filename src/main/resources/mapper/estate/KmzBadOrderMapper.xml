@@ -1,0 +1,44 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.exfree.web.estate.mapper.KmzBadOrderMapper">
+    
+    <resultMap type="KmzBadOrder" id="KmzBadOrderResult">
+        <result property="id"    column="id"    />
+        <result property="orderSn"    column="order_sn"    />
+        <result property="memberId"    column="member_id"    />
+        <result property="memberName"    column="member_name"    />
+        <result property="memberMobile"    column="member_mobile"    />
+        <result property="memberType"    column="member_type"    />
+        <result property="bikeNo"    column="bike_no"    />
+        <result property="bikeType"    column="bike_type"    />
+        <result property="address"    column="address"    />
+        <result property="areaId"    column="area_id"    />
+        <result property="areaName"    column="area_name"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="remark"    column="remark"    />
+
+    </resultMap>
+
+
+
+    <sql id="selectKmzBadOrderVo">
+        select id, order_sn, member_id, member_name, member_mobile, member_type, bike_no, bike_type, address, area_id, area_name, create_time, remark from kmz_bad_order
+    </sql>
+
+    <select id="selectKmzBadOrderList" parameterType="KmzBadOrder" resultMap="KmzBadOrderResult">
+        <include refid="selectKmzBadOrderVo"/>
+        <where>  
+            <if test="orderSn != null  and orderSn != ''"> and order_sn = #{orderSn}</if>
+            <if test="memberName != null  and memberName != ''"> and member_name like concat('%', #{memberName}, '%')</if>
+            <if test="memberMobile != null  and memberMobile != ''"> and member_mobile = #{memberMobile}</if>
+            <if test="memberType != null "> and member_type = #{memberType}</if>
+            <if test="bikeNo != null "> and bike_no = #{bikeNo}</if>
+            <if test="bikeType != null "> and bike_type = #{bikeType}</if>
+        </where>
+    </select>
+
+
+
+</mapper>

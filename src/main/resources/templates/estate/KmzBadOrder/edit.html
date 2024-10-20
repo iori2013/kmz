@@ -1,0 +1,118 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改故障单')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-KmzBadOrder-edit" th:object="${kmzBadOrder}">
+            <input name="id" th:field="*{id}" type="hidden">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">编号：</label>
+                    <div class="col-sm-8">
+                        <input name="orderSn" th:field="*{orderSn}" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">类型：</label>
+                    <div class="col-sm-8">
+                        <input name="memberId" th:field="*{memberId}" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">会员名称：</label>
+                    <div class="col-sm-8">
+                        <input name="memberName" th:field="*{memberName}" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">会员手机号：</label>
+                    <div class="col-sm-8">
+                        <input name="memberMobile" th:field="*{memberMobile}" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">会员类型：</label>
+                    <div class="col-sm-8">
+                        <select name="memberType" class="form-control" th:with="type=${@dict.getType('member_type')}">
+                            <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{memberType}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">车辆编号：</label>
+                    <div class="col-sm-8">
+                        <input name="bikeNo" th:field="*{bikeNo}" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">车辆类型：</label>
+                    <div class="col-sm-8">
+                        <select name="bikeType" class="form-control" th:with="type=${@dict.getType('bike_type')}">
+                            <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{bikeType}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">故障地点：</label>
+                    <div class="col-sm-8">
+                        <input name="address" th:field="*{address}" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">区域Id：</label>
+                    <div class="col-sm-8">
+                        <input name="areaId" th:field="*{areaId}" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">区域名称：</label>
+                    <div class="col-sm-8">
+                        <input name="areaName" th:field="*{areaName}" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">故障原因：</label>
+                    <div class="col-sm-8">
+                        <input name="remark" th:field="*{remark}" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var prefix = ctx + "estate/KmzBadOrder";
+        $("#form-KmzBadOrder-edit").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-KmzBadOrder-edit').serialize());
+            }
+        }
+    </script>
+</body>
+</html>

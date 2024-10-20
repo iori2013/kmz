@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.exfree.web.estate.mapper.KmzPriceMapper">
+    
+    <resultMap type="KmzPrice" id="KmzPriceResult">
+        <result property="id"    column="id"    />
+        <result property="bikeType"    column="bike_type"    />
+        <result property="areaId"    column="area_id"    />
+        <result property="areaName"    column="area_name"    />
+        <result property="partMinute1"    column="part_minute1"    />
+        <result property="partPrice1"    column="part_price1"    />
+        <result property="nextMinute"    column="next_minute"    />
+        <result property="nextPrice"    column="next_price"    />
+        <result property="remark"    column="remark"    />
+
+    </resultMap>
+
+
+
+    <sql id="selectKmzPriceVo">
+        select id, bike_type, area_id, area_name, part_minute1, part_price1, next_minute, next_price, remark from kmz_price
+    </sql>
+
+    <select id="selectKmzPriceList" parameterType="KmzPrice" resultMap="KmzPriceResult">
+        <include refid="selectKmzPriceVo"/>
+        <where>  
+            <if test="bikeType != null "> and bike_type = #{bikeType}</if>
+            <if test="areaName != null  and areaName != ''"> and area_name like concat('%', #{areaName}, '%')</if>
+        </where>
+    </select>
+
+
+
+</mapper>

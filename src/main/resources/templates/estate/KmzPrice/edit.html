@@ -1,0 +1,92 @@
+<!DOCTYPE html>
+<html lang="zh" xmlns:th="http://www.thymeleaf.org" >
+<head>
+    <th:block th:include="include :: header('修改价格设置')" />
+</head>
+<body class="white-bg">
+    <div class="wrapper wrapper-content animated fadeInRight ibox-content">
+        <form class="form-horizontal m" id="form-KmzPrice-edit" th:object="${kmzPrice}">
+            <input name="id" th:field="*{id}" type="hidden">
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">车辆类型：</label>
+                    <div class="col-sm-8">
+                        <select name="bikeType" class="form-control" th:with="type=${@dict.getType('bike_type')}">
+                            <option th:each="dict : ${type}" th:text="${dict.dictLabel}" th:value="${dict.dictValue}" th:field="*{bikeType}"></option>
+                        </select>
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">地区id：</label>
+                    <div class="col-sm-8">
+                        <input name="areaId" th:field="*{areaId}" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">地区名称：</label>
+                    <div class="col-sm-8">
+                        <input name="areaName" th:field="*{areaName}" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">第一段时间：</label>
+                    <div class="col-sm-8">
+                        <input name="partMinute1" th:field="*{partMinute1}" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">第一段价格：</label>
+                    <div class="col-sm-8">
+                        <input name="partPrice1" th:field="*{partPrice1}" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">递增时间：</label>
+                    <div class="col-sm-8">
+                        <input name="nextMinute" th:field="*{nextMinute}" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">递增价格：</label>
+                    <div class="col-sm-8">
+                        <input name="nextPrice" th:field="*{nextPrice}" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+            <div class="col-xs-12">
+                <div class="form-group">
+                    <label class="col-sm-3 control-label">备注：</label>
+                    <div class="col-sm-8">
+                        <input name="remark" th:field="*{remark}" class="form-control" type="text">
+                    </div>
+                </div>
+            </div>
+        </form>
+    </div>
+    <th:block th:include="include :: footer" />
+    <script th:inline="javascript">
+        var prefix = ctx + "estate/KmzPrice";
+        $("#form-KmzPrice-edit").validate({
+            focusCleanup: true
+        });
+
+        function submitHandler() {
+            if ($.validate.form()) {
+                $.operate.save(prefix + "/edit", $('#form-KmzPrice-edit').serialize());
+            }
+        }
+    </script>
+</body>
+</html>

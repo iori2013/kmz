@@ -1,0 +1,36 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.exfree.web.estate.mapper.KmzMemberMapper">
+    
+    <resultMap type="KmzMember" id="KmzMemberResult">
+        <result property="id"    column="id"    />
+        <result property="username"    column="username"    />
+        <result property="password"    column="password"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="type"    column="type"    />
+        <result property="token"    column="token"    />
+        <result property="mobile"    column="mobile"    />
+
+    </resultMap>
+
+
+
+    <sql id="selectKmzMemberVo">
+        select id, username, password, create_time, type, token, mobile from kmz_member
+    </sql>
+
+    <select id="selectKmzMemberList" parameterType="KmzMember" resultMap="KmzMemberResult">
+        <include refid="selectKmzMemberVo"/>
+        <where>  
+            <if test="username != null  and username != ''"> and username like concat('%', #{username}, '%')</if>
+            <if test="password != null  and password != ''"> and password = #{password}</if>
+            <if test="type != null "> and type = #{type}</if>
+            <if test="mobile != null  and mobile != ''"> and mobile = #{mobile}</if>
+        </where>
+    </select>
+
+
+
+</mapper>

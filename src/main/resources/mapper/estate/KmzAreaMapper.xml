@@ -1,0 +1,35 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.exfree.web.estate.mapper.KmzAreaMapper">
+    
+    <resultMap type="KmzArea" id="KmzAreaResult">
+        <result property="id"    column="id"    />
+        <result property="no"    column="no"    />
+        <result property="name"    column="name"    />
+        <result property="address"    column="address"    />
+        <result property="createTime"    column="create_time"    />
+        <result property="contact"    column="contact"    />
+    </resultMap>
+
+    <sql id="selectKmzAreaVo">
+        select id, no, name, address, create_time, contact from kmz_area
+    </sql>
+    <insert id="insertD">
+        insert into kmz_area(no, name, address, create_time, contact) values (#{no}, #{name}, #{address}, #{createTime}, #{contact})
+    </insert>
+
+    <select id="selectKmzAreaList" parameterType="KmzArea" resultMap="KmzAreaResult">
+        <include refid="selectKmzAreaVo"/>
+        <where>  
+            <if test="no != null  and no != ''"> and no = #{no}</if>
+            <if test="name != null  and name != ''"> and name like concat('%', #{name}, '%')</if>
+            <if test="address != null  and address != ''"> and address = #{address}</if>
+            <if test="contact != null  and contact != ''"> and contact = #{contact}</if>
+        </where>
+    </select>
+
+
+
+</mapper>

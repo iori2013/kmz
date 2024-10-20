@@ -1,0 +1,41 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.exfree.web.estate.mapper.KmzBikeMapper">
+    
+    <resultMap type="KmzBike" id="KmzBikeResult">
+        <result property="id"    column="id"    />
+        <result property="no"    column="no"    />
+        <result property="type"    column="type"    />
+        <result property="brand"    column="brand"    />
+        <result property="bikeNo"    column="bike_no"    />
+        <result property="state"    column="state"    />
+        <result property="priceId"    column="price_id"    />
+        <result property="address"    column="address"    />
+        <result property="areaId"    column="area_id"    />
+        <result property="areaName"    column="area_name"    />
+        <result property="orderNo"    column="order_no"    />
+        <result property="createTime"    column="create_time"    />
+
+    </resultMap>
+
+
+
+    <sql id="selectKmzBikeVo">
+        select id, no, type, brand, bike_no, state, price_id, address, area_id, area_name, order_no, create_time from kmz_bike
+    </sql>
+
+    <select id="selectKmzBikeList" parameterType="KmzBike" resultMap="KmzBikeResult">
+        <include refid="selectKmzBikeVo"/>
+        <where>  
+            <if test="type != null "> and type = #{type}</if>
+            <if test="bikeNo != null  and bikeNo != ''"> and bike_no like concat('%', #{bikeNo}, '%')</if>
+            <if test="state != null "> and state = #{state}</if>
+            <if test="areaName != null  and areaName != ''"> and area_name like concat('%', #{areaName}, '%')</if>
+        </where>
+    </select>
+
+
+
+</mapper>

@@ -1,0 +1,51 @@
+<?xml version="1.0" encoding="UTF-8" ?>
+<!DOCTYPE mapper
+PUBLIC "-//mybatis.org//DTD Mapper 3.0//EN"
+"http://mybatis.org/dtd/mybatis-3-mapper.dtd">
+<mapper namespace="top.exfree.web.estate.mapper.KmzOrderMapper">
+    
+    <resultMap type="KmzOrder" id="KmzOrderResult">
+        <result property="id"    column="id"    />
+        <result property="orderSn"    column="order_sn"    />
+        <result property="memberId"    column="member_id"    />
+        <result property="memberName"    column="member_name"    />
+        <result property="memberMobile"    column="member_mobile"    />
+        <result property="memberType"    column="member_type"    />
+        <result property="bikeNo"    column="bike_no"    />
+        <result property="bikeType"    column="bike_type"    />
+        <result property="priceId"    column="price_id"    />
+        <result property="priceRemark"    column="price_remark"    />
+        <result property="orderPrice"    column="order_price"    />
+        <result property="areaId"    column="area_id"    />
+        <result property="areaName"    column="area_name"    />
+        <result property="startTime"    column="start_time"    />
+        <result property="startPlace"    column="start_place"    />
+        <result property="backTime"    column="back_time"    />
+        <result property="backPlace"    column="back_place"    />
+        <result property="state"    column="state"    />
+
+    </resultMap>
+
+
+
+    <sql id="selectKmzOrderVo">
+        select id, order_sn, member_id, member_name, member_mobile, member_type, bike_no, bike_type, price_id, price_remark, order_price, area_id, area_name, start_time, start_place, back_time, back_place, state from kmz_order
+    </sql>
+
+    <select id="selectKmzOrderList" parameterType="KmzOrder" resultMap="KmzOrderResult">
+        <include refid="selectKmzOrderVo"/>
+        <where>  
+            <if test="orderSn != null  and orderSn != ''"> and order_sn = #{orderSn}</if>
+            <if test="memberName != null  and memberName != ''"> and member_name like concat('%', #{memberName}, '%')</if>
+            <if test="memberMobile != null  and memberMobile != ''"> and member_mobile = #{memberMobile}</if>
+            <if test="memberType != null "> and member_type = #{memberType}</if>
+            <if test="bikeNo != null  and bikeNo != ''"> and bike_no = #{bikeNo}</if>
+            <if test="bikeType != null "> and bike_type = #{bikeType}</if>
+            <if test="startTime != null "> and start_time = #{startTime}</if>
+            <if test="state != null "> and state = #{state}</if>
+        </where>
+    </select>
+
+
+
+</mapper>
